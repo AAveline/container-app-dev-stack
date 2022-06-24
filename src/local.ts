@@ -24,6 +24,11 @@ class MyStack extends TerraformStack {
           external: 9000,
         },
       ],
+      volumes: [
+        {
+          
+        }
+      ]
     });
   }
 }
