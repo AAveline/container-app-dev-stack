@@ -17,6 +17,7 @@ module main './modules/main.bicep' = {
   name: 'main'
   params: {
     location: location
+    namePrefix: namePrefix
   }
 }
 

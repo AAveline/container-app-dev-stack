@@ -1,11 +1,12 @@
 param location string = resourceGroup().location
-param appContainerEnvironmentName string = 'aymericcontainerappenv'
+param namePrefix string
 
 var logAnalyticsWorkspaceName = 'logs-${appContainerEnvironmentName}'
 var appInsightsName = 'appins-${appContainerEnvironmentName}'
+var appContainerEnvironmentName = '${namePrefix}containerappenv'
 
-var storageAccountName = 'aymericstorageaccount'
-var fileShareName = 'aymericstorage'
+var storageAccountName = '${namePrefix}storageaccount'
+var fileShareName = '${namePrefix}storage'
 
 resource storageAccount 'Microsoft.Storage/storageAccounts@2021-09-01' = {
   name: storageAccountName
@@ -67,7 +68,7 @@ resource appContainerEnvironment 'Microsoft.App/managedEnvironments@2022-03-01' 
 }
 
 resource appContainerEnvironmentShare 'Microsoft.App/managedEnvironments/storages@2022-03-01' = {
-  name: '${appContainerEnvironmentName}/aymericstorage'
+  name: '${appContainerEnvironmentName}/${namePrefix}storage'
   dependsOn: [
     appContainerEnvironment
   ]
@@ -119,7 +120,7 @@ resource vsCodeApp 'Microsoft.App/containerApps@2022-03-01' = {
           name: 'vscode-app'
           volumeMounts: [
             {
-              mountPath: '/config'
+              mountPath: '/config/workspace'
               volumeName: 'azure-files-volume'
             }
           ]
@@ -136,7 +137,7 @@ resource vsCodeApp 'Microsoft.App/containerApps@2022-03-01' = {
       volumes: [
         {
           name: 'azure-files-volume'
-          storageName: 'aymericstorage'
+          storageName: '${namePrefix}storage'
           storageType: 'AzureFile'
         }
       ]

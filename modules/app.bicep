@@ -16,7 +16,7 @@ resource app 'Microsoft.App/containerApps@2022-03-01' = {
     template: {
       containers: [
         {
-          image: 'aaveline/node:v1'
+          image: 'node'
           name: 'app'
           volumeMounts: [
             {
