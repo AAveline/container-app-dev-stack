@@ -1,7 +1,7 @@
 # Azure ContainerApp as cloud development stack 
 
 ## Overview
-A simple Bicep module who allows to deploy an development ContainerApp environement.
+A simple Bicep module who allows to deploy a development ContainerApp environment.
 It will deploy the following resources:
 - An Azure Premium storage account optimized for File share
 - An Azure File Share with SMB filesystem
